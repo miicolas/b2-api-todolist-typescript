@@ -1,13 +1,9 @@
-import { Router, Request, Response } from 'express';
+import { Router} from 'express';
+import Router_Auth from "./auth/router.js";
 
 const router = Router();
 
-router.get('/', (req : Request, res : Response) => {
-    res.send('Hello World!');
-});
-
-
-
+router.use("/auth", Router_Auth);
 
 
 export default router;
