@@ -1,18 +1,25 @@
 {
-    "compilerOptions": {
-        "target": "es6",
-        "outDir": "./dist",
-        "strict": true,
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-        "baseUrl": ".",
-        "paths": {
-            "*": ["./*"]
-        }
-        
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "NodeNext",
+    "rootDir": "./",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./*"]
     },
-    "exclude": [
-        "node_modules"
-    ]
+    "typeRoots": [
+      "types",
+      "./node_modules/@types"
+    ],
+    "sourceMap": true,
+    "moduleResolution":"nodenext",
+    "noEmit": false,
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true, 
+  },
+  "exclude": ["node_modules", "dist"]
 }
