@@ -20,8 +20,17 @@ export default class TodoController {
                     userId
                 }
             });
-            console.log(todo);
             return todo;
+        });
+    }
+    static getTodos(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const todos = yield prisma.todo.findMany({
+                where: {
+                    userId
+                }
+            });
+            return todos;
         });
     }
 }

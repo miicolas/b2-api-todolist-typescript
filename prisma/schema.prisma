@@ -18,7 +18,7 @@ model User {
   name          String    
   email         String    @unique
   password      String   
-  todos         Todo[]    // Relation to Todo model
+  todos         Todo[]    
 }
 
 model Todo {
