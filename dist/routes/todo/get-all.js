@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import TodoController from '@/controllers/todo.js';
+import TodoController from '../../controllers/todo.js';
 export default function Route_getAll_Todos(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {

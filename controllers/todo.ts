@@ -10,7 +10,7 @@ export default class TodoController {
             data: {
                 title,
                 description,
-                dueDate,
+                dueDate: dueDate ? new Date(dueDate) : undefined,
                 userId
             }
         });

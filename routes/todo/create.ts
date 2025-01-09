@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import TodoController from "@/controllers/todo.js";
-import { TodoBase } from "@/utils/types.js";
+import TodoController from "../../controllers/todo.js";
+import { TodoBase } from "../../utils/types.js";
 
 
 export default async function Route_Create_Todo(req: Request, res: Response):Promise<any> {

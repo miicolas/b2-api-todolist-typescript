@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import TodoController from '@/controllers/todo.js';
+import TodoController from '../../controllers/todo.js';
 
 export default async function Route_getAll_Todos(req:Request, res:Response):Promise<any> {
    
