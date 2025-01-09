@@ -25,12 +25,19 @@ export default class TodoController {
     }
     static getTodos(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const todos = yield prisma.todo.findMany({
-                where: {
-                    userId
-                }
-            });
-            return todos;
+            try {
+                console.log('prisma');
+                const todos = yield prisma.todo.findMany({
+                    where: {
+                        userId
+                    },
+                });
+                return todos;
+            }
+            catch (error) {
+                console.error('Get todos error:', error);
+                throw new Error('Get todos failed!');
+            }
         });
     }
 }

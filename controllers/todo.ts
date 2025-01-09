@@ -19,12 +19,17 @@ export default class TodoController {
     }
 
     static async getTodos(userId: string) {
-        const todos = await prisma.todo.findMany({
-            where: {
-                userId
-            }
-        });
 
-        return todos;
+        try {
+            const todos = await prisma.todo.findMany({
+                where: {
+                    userId
+                },
+            });
+            return todos;
+        } catch (error) {
+            console.error('Get todos error:', error);
+            throw new Error('Get todos failed!');
+        }
     }
 }

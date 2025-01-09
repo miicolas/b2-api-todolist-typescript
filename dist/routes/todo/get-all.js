@@ -11,7 +11,7 @@ import TodoController from '../../controllers/todo.js';
 export default function Route_getAll_Todos(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { userId } = req.body;
+            const userId = req.user;
             if (!userId) {
                 return res.status(400).json({ message: "Missing required fields!" });
             }
@@ -19,7 +19,10 @@ export default function Route_getAll_Todos(req, res) {
             if (!todos) {
                 return res.status(404).json({ message: "No todos found!" });
             }
-            res.status(200).send(todos);
+            res.status(200).send({
+                message: "Get all todos successful!",
+                data: todos
+            });
         }
         catch (error) {
             console.error('Get all todos error:', error);
