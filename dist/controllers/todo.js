@@ -7,11 +7,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+// Imports
 import { PrismaClient } from "@prisma/client";
+// Appel de Prisma
 const prisma = new PrismaClient();
+// Class TodoController
 export default class TodoController {
+    // Méthode de création de tâches
     static create(_a) {
         return __awaiter(this, arguments, void 0, function* ({ title, description, dueDate, userId }) {
+            // Si il manque un élément -> renvoi une erreur
+            if (!title || !description || !dueDate || !userId) {
+                throw new Error("Missing required fields");
+            }
+            // Création d'une tâche
             const todo = yield prisma.todo.create({
                 data: {
                     title,
@@ -23,9 +32,11 @@ export default class TodoController {
             return todo;
         });
     }
+    // Méthode de récupération des tâches
     static getTodos(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                // Récupération des tâches
                 const todos = yield prisma.todo.findMany({
                     where: {
                         userId
@@ -34,6 +45,7 @@ export default class TodoController {
                 return todos;
             }
             catch (error) {
+                // Renvoie d'erreur
                 console.error('Get todos error:', error);
                 throw new Error('Get todos failed!');
             }

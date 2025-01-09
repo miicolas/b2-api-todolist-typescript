@@ -20,6 +20,7 @@ export default async function Route_Signin(req: Request, res: Response) :Promise
         // Récupération de l'utilisateur
         const user = await AuthController.login({ email, password } as LoginUser);
 
+        console.log(user, 'user');
         // Vérification de l'existance de l'utilisateur
         if (!user) {
             return res.status(401).json({ message: "Invalid credentials!" });
@@ -30,12 +31,14 @@ export default async function Route_Signin(req: Request, res: Response) :Promise
             throw new Error("JWT_SECRET is not defined");
         }
 
+        console.log(process.env.JWT_SECRET)
         // Création d'un TOKEN valable 24h
         const token = jwt.sign(
-            { id: user.id, email: user.email },
+            { id: user.user.id, email: user.user.email },
             process.env.JWT_SECRET,
             { expiresIn: '24h' }
         );
+
 
         console.log(token, 'token');    
 
@@ -45,7 +48,7 @@ export default async function Route_Signin(req: Request, res: Response) :Promise
             data: { token },
         });
     } catch (error) {
-        // Renoie d'erreur
+        // Renvoie d'erreur
         console.error('Login error:', error);
         return res.status(500).json({
             message: "Login failed!",

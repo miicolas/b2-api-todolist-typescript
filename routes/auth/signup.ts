@@ -1,3 +1,4 @@
+
 // Imports
 import AuthController from "../../controllers/auth.js";
 import CypherController from "../../controllers/cypher.js";
