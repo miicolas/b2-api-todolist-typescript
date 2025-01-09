@@ -18,7 +18,6 @@ export default function AuthMiddleware(req, res, next) {
         else {
             return res.status(401).json({ message: "Invalid token payload" });
         }
-        console.log(req.user, 'req.user');
         next();
     }
     catch (error) {

@@ -40,10 +40,64 @@ export default class TodoController {
                 },
             });
             return todos;
+
         } catch (error) {
             // Renvoie d'erreur
             console.error('Get todos error:', error);
             throw new Error('Get todos failed!');
         }
     }
+
+    static async complete(id: number, userId: string) {
+
+        try {
+            const todo = await prisma.todo.findFirst({
+                where: {
+                    id : Number(id),
+                    userId, 
+                }
+            });
+
+            if (!todo) {
+                throw new Error('Todo not found!');
+            }
+
+            const updatedTodo = await prisma.todo.update({
+                where: {
+                    id : Number(id),
+                },
+                data: {
+                    completed: !todo.completed
+                }
+            });
+
+            return updatedTodo;
+        }
+        catch (error) {
+            console.error('Complete todo error:', error);
+            throw new Error('Complete todo failed!');
+        }
+    }
+
+    static async delete(id: number, userId: string) {
+
+        try {
+            const todo = await prisma.todo.delete({
+                where: {
+                    id : Number(id),
+                    userId, 
+                }
+            });
+
+            if (!todo) {
+                throw new Error('Todo not found!');
+            }
+            return todo;
+        }
+        catch (error) {
+            console.error('Delete todo error:', error);
+            throw new Error('Delete todo failed!');
+        }
+    }
+
 }

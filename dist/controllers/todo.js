@@ -26,7 +26,6 @@ export default class TodoController {
     static getTodos(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                console.log('prisma');
                 const todos = yield prisma.todo.findMany({
                     where: {
                         userId
@@ -37,6 +36,54 @@ export default class TodoController {
             catch (error) {
                 console.error('Get todos error:', error);
                 throw new Error('Get todos failed!');
+            }
+        });
+    }
+    static complete(id, userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const todo = yield prisma.todo.findFirst({
+                    where: {
+                        id: Number(id),
+                        userId,
+                    }
+                });
+                if (!todo) {
+                    throw new Error('Todo not found!');
+                }
+                const updatedTodo = yield prisma.todo.update({
+                    where: {
+                        id: Number(id),
+                    },
+                    data: {
+                        completed: !todo.completed
+                    }
+                });
+                return updatedTodo;
+            }
+            catch (error) {
+                console.error('Complete todo error:', error);
+                throw new Error('Complete todo failed!');
+            }
+        });
+    }
+    static delete(id, userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const todo = yield prisma.todo.delete({
+                    where: {
+                        id: Number(id),
+                        userId,
+                    }
+                });
+                if (!todo) {
+                    throw new Error('Todo not found!');
+                }
+                return todo;
+            }
+            catch (error) {
+                console.error('Delete todo error:', error);
+                throw new Error('Delete todo failed!');
             }
         });
     }
