@@ -7,7 +7,6 @@ export default function Route_edit_Todo(req: Request, res: Response): any {
 
         const userId = req.user as string;
         const { id, title, description, dueDate } = req.body as { id: number, title: string, description: string, dueDate: string };
-        console.log('userId:', userId);
 
         if (!userId || !id || !title || !description || !dueDate) {
             return res.status(400).json({ message: "Missing required fields!" });

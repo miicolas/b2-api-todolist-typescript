@@ -10,8 +10,6 @@ export default async function Route_Signin(req: Request, res: Response) :Promise
         // Récupération de la requête
         const { email, password } = req.body;
 
-        console.log(email,password, 'email, password');
-
         // Vérification de l'existance de l'email et du mot de passe
         if (!email || !password) {
             return res.status(400).json({ message: "Missing required fields!" });
@@ -20,7 +18,6 @@ export default async function Route_Signin(req: Request, res: Response) :Promise
         // Récupération de l'utilisateur
         const user = await AuthController.login({ email, password } as LoginUser);
 
-        console.log(user, 'user');
         // Vérification de l'existance de l'utilisateur
         if (!user) {
             return res.status(401).json({ message: "Invalid credentials!" });
@@ -30,17 +27,12 @@ export default async function Route_Signin(req: Request, res: Response) :Promise
         if (!process.env.JWT_SECRET) {
             throw new Error("JWT_SECRET is not defined");
         }
-
-        console.log(process.env.JWT_SECRET)
         // Création d'un TOKEN valable 24h
         const token = jwt.sign(
             { id: user.user.id, email: user.user.email },
             process.env.JWT_SECRET,
             { expiresIn: '24h' }
         );
-
-
-        console.log(token, 'token');    
 
         // Revoie un message de succès
         return res.status(200).json({

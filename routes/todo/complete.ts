@@ -8,8 +8,6 @@ export default async function Route_complete_Todo(req: Request, res: Response): 
         const userId = req.user as string;
         const { id } = req.body as { id: number };
 
-        console.log('userId:', userId);
-
         if (!userId || !id) {
             return res.status(400).json({ message: "Missing required fields!" });
         }
