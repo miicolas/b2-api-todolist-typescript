@@ -99,5 +99,30 @@ export default class TodoController {
             }
         });
     }
+    static edit(id, title, description, dueDate, userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const todo = yield prisma.todo.update({
+                    where: {
+                        id: Number(id),
+                        userId,
+                    },
+                    data: {
+                        title,
+                        description,
+                        dueDate: dueDate ? new Date(dueDate) : undefined,
+                    }
+                });
+                if (!todo) {
+                    throw new Error('Todo not found!');
+                }
+                return todo;
+            }
+            catch (error) {
+                console.error('Edit todo error:', error);
+                throw new Error('Edit todo failed!');
+            }
+        });
+    }
 }
 //# sourceMappingURL=todo.js.map

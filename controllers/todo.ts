@@ -100,4 +100,30 @@ export default class TodoController {
         }
     }
 
+    static async edit(id: number, title: string, description: string, dueDate: string, userId: string) {
+
+        try {
+            const todo = await prisma.todo.update({
+                where: {
+                    id : Number(id),
+                    userId, 
+                },
+                data: {
+                    title,
+                    description,
+                    dueDate: dueDate ? new Date(dueDate) : undefined,
+                }
+            });
+
+            if (!todo) {
+                throw new Error('Todo not found!');
+            }
+            return todo;
+        }
+        catch (error) {
+            console.error('Edit todo error:', error);
+            throw new Error('Edit todo failed!');
+        }
+    }
+
 }
