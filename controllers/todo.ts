@@ -48,9 +48,11 @@ export default class TodoController {
         }
     }
 
+    // Méthode de complétion d'une tâche
     static async complete(id: number, userId: string) {
 
         try {
+            // Récupération de la tâche
             const todo = await prisma.todo.findFirst({
                 where: {
                     id : Number(id),
@@ -58,10 +60,12 @@ export default class TodoController {
                 }
             });
 
+            // vérification de l'existance de la tâche
             if (!todo) {
                 throw new Error('Todo not found!');
             }
 
+            // Complétion de la tâche
             const updatedTodo = await prisma.todo.update({
                 where: {
                     id : Number(id),
@@ -74,14 +78,17 @@ export default class TodoController {
             return updatedTodo;
         }
         catch (error) {
+            // Renvoie d'erreurs
             console.error('Complete todo error:', error);
             throw new Error('Complete todo failed!');
         }
     }
 
+    // Méthode de suppression de la tâche
     static async delete(id: number, userId: string) {
 
         try {
+            // Récupération et  suppression de la tâche
             const todo = await prisma.todo.delete({
                 where: {
                     id : Number(id),
@@ -89,20 +96,25 @@ export default class TodoController {
                 }
             });
 
+            // Vérification de l'existance de la tâche
             if (!todo) {
                 throw new Error('Todo not found!');
             }
+
             return todo;
         }
         catch (error) {
+            // Renvoi d'erreurs
             console.error('Delete todo error:', error);
             throw new Error('Delete todo failed!');
         }
     }
 
+    // Méthode de modification de la tâche
     static async edit(id: number, title: string, description: string, dueDate: string, userId: string) {
 
         try {
+            // Récupération et modification de la tâche
             const todo = await prisma.todo.update({
                 where: {
                     id : Number(id),
@@ -115,12 +127,15 @@ export default class TodoController {
                 }
             });
 
+            // Vérification de l'existance de la tâche
             if (!todo) {
                 throw new Error('Todo not found!');
             }
+
             return todo;
         }
         catch (error) {
+            // Renvoi d'erreurs
             console.error('Edit todo error:', error);
             throw new Error('Edit todo failed!');
         }
